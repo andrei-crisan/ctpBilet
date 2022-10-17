@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private final long TIME_INIT = 2700000;
     private long timeLeft = TIME_INIT;
     private boolean timeRunning;
-    Boolean arataSms = false;
+    private Boolean arataSms = false;
     private Button buttonBuy;
-    Calendar ziuaDeVineri = Calendar.getInstance();
+    private Calendar ziuaDeVineri = Calendar.getInstance();
 
     public static MainActivity getInstance(){
         return instance;
