@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     private void trimiteMesaj() {
         String numarTelefon = "0740917616";
         String sms = mesaj.getText().toString();
-        if (ziuaDeVineri.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY && !sms.contains("M40")) {
+        if (ziuaDeVineri.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && !sms.contains("M40")) {
             Toast.makeText(instance, "Azi nu-i nevoie de bilet, numa' in sat! @metropolitan", Toast.LENGTH_SHORT).show();
         } else {
             try {
