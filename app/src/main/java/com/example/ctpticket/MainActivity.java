@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static MainActivity instance;
@@ -137,7 +139,10 @@ public class MainActivity extends AppCompatActivity {
         String sms = mesaj.getText().toString();
         if (ziuaDeVineri.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && !sms.contains("M40")) {
             Toast.makeText(instance, "Azi nu-i nevoie de bilet, numa' in sat! @metropolitan", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        if(sms.matches("^([a-lA-L|n-zN-Z])+\\d+$")){
+            Toast.makeText(instance, "Linia este invalida!", Toast.LENGTH_SHORT).show();
+        }else {
             try {
                 SmsManager smsManager = SmsManager.getDefault();
                 if(!sms.isEmpty()){
