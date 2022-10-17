@@ -135,18 +135,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void trimiteMesaj() {
-        String numarCtp = "0740917616";
+        String destinatieCtp = "0740917616";
         String sms = mesaj.getText().toString();
         if (ziuaDeVineri.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && !sms.contains("M40")) {
             Toast.makeText(instance, "Azi nu-i nevoie de bilet, numa' in sat! @metropolitan", Toast.LENGTH_SHORT).show();
         }
-        if(sms.matches("^([a-lA-L|n-zN-Z])+\\d+$")){
+        if(sms.matches("^(([a-lA-L|n-zN-Z])+\\d+$)|([a-lA-L|n-zN-Z])+")){
             Toast.makeText(instance, "Linia este invalida!", Toast.LENGTH_SHORT).show();
         }else {
             try {
                 SmsManager smsManager = SmsManager.getDefault();
                 if(!sms.isEmpty()){
-                    smsManager.sendTextMessage(numarCtp, null, sms, null, null);
+                    smsManager.sendTextMessage(destinatieCtp, null, sms, null, null);
                     Toast.makeText(this, "SMS-ul a fost trimis!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(instance, "Selecteaza o linie de autobuz!", Toast.LENGTH_SHORT).show();
