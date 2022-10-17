@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
         }
-        notificare = soundPool.load(this, R.raw.notificareblt, 1);
+        notificare = soundPool.load(this, R.raw.notificareblt1, 1);
     }
 
     public void updateCodMesaj(String codBilet, String mesajIntegral, String msg_from){
@@ -248,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void stopTimer(){
         count.cancel();
+        timeRunning = false;
         timeLeft = TIME_INIT;
         count.start();
     }

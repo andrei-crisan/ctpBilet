@@ -41,7 +41,6 @@ public class ReceiveSms extends BroadcastReceiver {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         }
     }
