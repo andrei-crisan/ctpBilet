@@ -1,4 +1,5 @@
 package com.example.ctpticket;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +13,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SmsManager extends BroadcastReceiver {
-   private String codBilet = "";
+    private String ticketValidationCode = "";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
             Bundle bundle = intent.getExtras();
             SmsMessage[] msgs = null;
-            String msg_from;
+            String smsFrom;
 
             if (bundle != null) {
                 try {
@@ -27,18 +28,20 @@ public class SmsManager extends BroadcastReceiver {
                     msgs = new SmsMessage[pdus.length];
                     for (int i = 0; i < msgs.length; i++) {
                         msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-                        msg_from = msgs[i].getOriginatingAddress();
-                        String mesajIntegral = msgs[i].getMessageBody();
+                        smsFrom = msgs[i].getOriginatingAddress();
+                        String messageBody = msgs[i].getMessageBody();
 
-                        Pattern patternBilet = Pattern.compile("[0-9]+\\-[0-9]+[0-9]\\-[0-9]");
-                        Matcher match = patternBilet.matcher(mesajIntegral);
+                        Pattern regexTicketPattern = Pattern.compile("[0-9]+\\-[0-9]+[0-9]\\-[0-9]");
+                        Matcher regexMatcher = regexTicketPattern.matcher(messageBody);
 
-                        if (match.find()) { //verific patern in mesaj
-                            codBilet = match.group(0);
+                        if (regexMatcher.find()) {
+                            ticketValidationCode = regexMatcher.group(0);
                         }
-                        if (msg_from.equals("+40740917616") && mesajIntegral.contains("valabil") && mesajIntegral.contains("Cost")) { //daca mesaj e de la nr nostru
+                        if (smsFrom.equals("+40740917616") //Verificari autenticitate mesaj;
+                                && messageBody.contains("valabil")
+                                && messageBody.contains("Cost")) {
                             Toast.makeText(context, "Biletul a fost activat!", Toast.LENGTH_SHORT).show();
-                            MainActivity.getInstance().updateCodMesaj(codBilet, mesajIntegral, msg_from);
+                            MainActivity.getInstance().updateCodMesaj(ticketValidationCode, messageBody, smsFrom);
                         }
                     }
                 } catch (Exception e) {
@@ -49,20 +52,20 @@ public class SmsManager extends BroadcastReceiver {
     }
 
     public void smsTicketSender(EditText mesaj) {
-        Calendar ziuaDeVineri = Calendar.getInstance();
-        String destinatieCtp = "0740917616";
-        String sms = mesaj.getText().toString();
+        Calendar greenFriday = Calendar.getInstance();
+        String smsTicketDestination = "0740917616";
+        String smsTicketBody = mesaj.getText().toString();
 
-        if (ziuaDeVineri.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && !sms.contains("M40")) {
-            Toast.makeText(MainActivity.getInstance(), "Azi nu-i nevoie de bilet, numa' in sat! @metropolitan", Toast.LENGTH_SHORT).show();
+        if (greenFriday.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && !smsTicketBody.contains("M40")) {
+            Toast.makeText(MainActivity.getInstance(), "E slobod fara bilet azi: @Vinerea#Verde", Toast.LENGTH_SHORT).show();
         }
-        if(sms.matches("^(([a-lA-L|n-zN-Z])+\\d+$)|([a-lA-L|n-zN-Z])+")){
+        if (smsTicketBody.matches("^(([a-lA-L|n-zN-Z])+\\d+$)|([a-lA-L|n-zN-Z])+")) {
             Toast.makeText(MainActivity.getInstance(), "Linia este invalida!", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             try {
                 android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
-                if(!sms.isEmpty()){
-                    smsManager.sendTextMessage(destinatieCtp, null, sms, null, null);
+                if (!smsTicketBody.isEmpty()) {
+                    smsManager.sendTextMessage(smsTicketDestination, null, smsTicketBody, null, null);
                     Toast.makeText(MainActivity.getInstance(), "SMS-ul a fost trimis!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.getInstance(), "Selecteaza o linie de autobuz!", Toast.LENGTH_SHORT).show();
