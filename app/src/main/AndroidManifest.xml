@@ -19,6 +19,7 @@
         android:theme="@style/Theme.CtpTicket"
         tools:targetApi="31">
         <activity
+            android:configChanges="orientation|screenSize"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -26,14 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <receiver android:name=".ReceiveSms"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-        
     </application>
-
 </manifest>

@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReceiveSms extends BroadcastReceiver {
-    String codBilet = "";
+   private String codBilet = "";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -41,7 +41,6 @@ public class ReceiveSms extends BroadcastReceiver {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         }
     }
