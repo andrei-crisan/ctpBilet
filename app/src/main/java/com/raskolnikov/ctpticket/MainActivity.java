@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         soundPool = null;
     }
 
-    public void updateCodMesaj(String codBilet, String mesajIntegral, String msg_from) {
+    public void updateTicketMessageCode(String codBilet, String mesajIntegral, String msg_from) {
         if (expirationStampGUI.getVisibility() == View.VISIBLE) {
             expirationStampGUI.setVisibility(View.GONE);
         }
@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         startService();
     }
 
-    public void playAudio(int nrRepetari) {
-        soundPool.play(notification, 1, 1, 1, nrRepetari, 1);
+    public void playAudio(int repetitions) {
+        soundPool.play(notification, 1, 1, 1, repetitions, 1);
     }
 
     public void toggleSms(View view) {

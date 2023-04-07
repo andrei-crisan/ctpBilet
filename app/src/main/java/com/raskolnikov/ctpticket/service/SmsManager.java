@@ -44,7 +44,7 @@ public class SmsManager extends BroadcastReceiver {
                                 && messageBody.contains("valabil")
                                 && messageBody.contains("Cost")) {
                             Toast.makeText(context, "Biletul a fost activat!", Toast.LENGTH_SHORT).show();
-                            MainActivity.getInstance().updateCodMesaj(ticketValidationCode, messageBody, smsFrom);
+                            MainActivity.getInstance().updateTicketMessageCode(ticketValidationCode, messageBody, smsFrom);
                         }
                     }
                 } catch (Exception e) {
