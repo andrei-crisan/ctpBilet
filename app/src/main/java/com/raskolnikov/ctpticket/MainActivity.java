@@ -24,6 +24,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.raskolnikov.ctpticket.service.SmsManager;
+import com.raskolnikov.ctpticket.service.ValidityManager;
+
 public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_ID = "ValidityManager";
     private static MainActivity instance;
