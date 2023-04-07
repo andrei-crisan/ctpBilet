@@ -19,7 +19,7 @@ import androidx.core.app.NotificationCompat;
 public class ValidityManager extends Service {
     private final long TICKET_VALIDITY_IN_SECONDS = 2700000;
     private long timeLeftInSeconds = TICKET_VALIDITY_IN_SECONDS;
-    private boolean timeRunning;
+    public static boolean timeRunning = false;
     private CountDownTimer ticketValidityCounter;
 
     @Nullable
@@ -70,10 +70,12 @@ public class ValidityManager extends Service {
                 stopSelf();
             }
         }.start();
+
         timeRunning = true;
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("CTP-Bilet")
                 .setContentText("Biletul este activ!")
@@ -83,5 +85,33 @@ public class ValidityManager extends Service {
 
         startForeground(1, notification);
         return START_NOT_STICKY;
+    }
+
+    public boolean isTimeRunning() {
+        return timeRunning;
+    }
+
+    public void setTimeRunning(boolean timeRunning) {
+        this.timeRunning = timeRunning;
+    }
+
+    public CountDownTimer getTicketValidityCounter() {
+        return ticketValidityCounter;
+    }
+
+    public void setTicketValidityCounter(CountDownTimer ticketValidityCounter) {
+        this.ticketValidityCounter = ticketValidityCounter;
+    }
+
+    public long getTICKET_VALIDITY_IN_SECONDS() {
+        return TICKET_VALIDITY_IN_SECONDS;
+    }
+
+    public long getTimeLeftInSeconds() {
+        return timeLeftInSeconds;
+    }
+
+    public void setTimeLeftInSeconds(long timeLeftInSeconds) {
+        this.timeLeftInSeconds = timeLeftInSeconds;
     }
 }
