@@ -35,6 +35,8 @@ public class ValidityManager extends Service {
 
     @Override
     public void onDestroy() {
+        ticketValidityCounter.cancel();
+        timeLeftInSeconds = TICKET_VALIDITY_IN_SECONDS;
         super.onDestroy();
     }
 
@@ -69,9 +71,9 @@ public class ValidityManager extends Service {
                 Toast.makeText(MainActivity.getInstance(), "Biletul a expirat!", Toast.LENGTH_SHORT).show();
                 stopSelf();
             }
-        }.start();
+        };
 
-        timeRunning = true;
+        ticketValidityCounter.start();
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -87,31 +89,4 @@ public class ValidityManager extends Service {
         return START_NOT_STICKY;
     }
 
-    public boolean isTimeRunning() {
-        return timeRunning;
-    }
-
-    public void setTimeRunning(boolean timeRunning) {
-        this.timeRunning = timeRunning;
-    }
-
-    public CountDownTimer getTicketValidityCounter() {
-        return ticketValidityCounter;
-    }
-
-    public void setTicketValidityCounter(CountDownTimer ticketValidityCounter) {
-        this.ticketValidityCounter = ticketValidityCounter;
-    }
-
-    public long getTICKET_VALIDITY_IN_SECONDS() {
-        return TICKET_VALIDITY_IN_SECONDS;
-    }
-
-    public long getTimeLeftInSeconds() {
-        return timeLeftInSeconds;
-    }
-
-    public void setTimeLeftInSeconds(long timeLeftInSeconds) {
-        this.timeLeftInSeconds = timeLeftInSeconds;
-    }
 }

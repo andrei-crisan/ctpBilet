@@ -130,8 +130,7 @@ public class MainActivity extends AppCompatActivity {
         smsContentGUI.setText(mesajIntegral);
         senderNrGUI.setText("Primit de la: " + msg_from);
         showSms = true;
-//        startService();
-        startStop();
+        startService();
     }
 
     public void playAudio(int nrRepetari) {
@@ -218,28 +217,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void startService(){
         Intent intent = new Intent(this, ValidityManager.class);
+        ValidityManager.timeRunning = true;
+        stopService();
         startService(intent);
     }
+
     public void stopService(){
         Intent intent = new Intent(this, ValidityManager.class);
         stopService(intent);
     }
 
-    public void startStop() {
-        if (ValidityManager.timeRunning) {
-            stopService();
-            ValidityManager.timeRunning = false;
-            validityManager.setTimeLeftInSeconds(validityManager.getTICKET_VALIDITY_IN_SECONDS());
-            validityManager.getTicketValidityCounter().start();
-        } else {
-            startService();
-        }
-    }
 
-    public void stopTimer() {
-        validityManager.getTicketValidityCounter().cancel();
-        validityManager.setTimeRunning(false);
-        validityManager.setTimeLeftInSeconds(validityManager.getTICKET_VALIDITY_IN_SECONDS());
-        validityManager.getTicketValidityCounter().start();
-    }
 }
