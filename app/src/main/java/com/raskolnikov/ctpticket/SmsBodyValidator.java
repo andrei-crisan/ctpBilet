@@ -1,4 +1,4 @@
-package com.example.ctpticket;
+package com.raskolnikov.ctpticket;
 
 import android.widget.Toast;
 

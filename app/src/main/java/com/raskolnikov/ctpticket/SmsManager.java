@@ -1,4 +1,4 @@
-package com.example.ctpticket;
+package com.raskolnikov.ctpticket;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.telephony.SmsMessage;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

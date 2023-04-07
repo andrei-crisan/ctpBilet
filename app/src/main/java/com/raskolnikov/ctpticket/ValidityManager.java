@@ -1,6 +1,6 @@
-package com.example.ctpticket;
+package com.raskolnikov.ctpticket;
 
-import static com.example.ctpticket.MainActivity.CHANNEL_ID;
+import static com.raskolnikov.ctpticket.MainActivity.CHANNEL_ID;
 
 import android.app.Notification;
 import android.app.PendingIntent;
