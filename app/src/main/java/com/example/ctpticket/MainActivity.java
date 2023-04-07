@@ -77,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
                         SmsManager rcv = new SmsManager();
-                        rcv.smsTicketSender(smsInputContentGUI);
+                        try {
+                            rcv.smsTicketSender(smsInputContentGUI);
+                        } catch (Exception e){ //Todo: Custom Exception
+                            e.printStackTrace();
+                        }
 
                     } else {
                         requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
@@ -204,8 +208,8 @@ public class MainActivity extends AppCompatActivity {
         ticketValidityGUI.setText(timeLeftUpdate);
     }
 
-    public void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    public void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID, "Exemplu", NotificationManager.IMPORTANCE_DEFAULT
             );
@@ -215,17 +219,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void startService(){
-        Intent intent = new Intent(this, ValidityManager.class);
-        ValidityManager.timeRunning = true;
-        stopService();
-        startService(intent);
-    }
-
-    public void stopService(){
+    public void startService() {
         Intent intent = new Intent(this, ValidityManager.class);
         stopService(intent);
+        startService(intent);
     }
-
 
 }

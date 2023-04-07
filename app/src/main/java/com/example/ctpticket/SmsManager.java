@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SmsManager extends BroadcastReceiver {
+    private SmsBodyValidator validator = new SmsBodyValidator();
     private String ticketValidationCode = "";
 
     @Override
@@ -51,29 +52,19 @@ public class SmsManager extends BroadcastReceiver {
         }
     }
 
-    public void smsTicketSender(EditText mesaj) {
-        Calendar greenFriday = Calendar.getInstance();
+    public void smsTicketSender(EditText smsBody) {
         String smsTicketDestination = "0740917616";
-        String smsTicketBody = mesaj.getText().toString();
+        String smsTicketBody = smsBody.getText().toString();
 
-        if (greenFriday.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY && !smsTicketBody.contains("M40")) {
-            Toast.makeText(MainActivity.getInstance(), "E slobod fara bilet azi: @Vinerea#Verde", Toast.LENGTH_SHORT).show();
-        }
-        if (smsTicketBody.matches("^(([a-lA-L|n-zN-Z])+\\d+$)|([a-lA-L|n-zN-Z])+")) {
-            Toast.makeText(MainActivity.getInstance(), "Linia este invalida!", Toast.LENGTH_SHORT).show();
-        } else {
-            try {
-                android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
-                if (!smsTicketBody.isEmpty()) {
-                    smsManager.sendTextMessage(smsTicketDestination, null, smsTicketBody, null, null);
-                    Toast.makeText(MainActivity.getInstance(), "SMS-ul a fost trimis!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.getInstance(), "Selecteaza o linie de autobuz!", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(MainActivity.getInstance(), "Eroare!", Toast.LENGTH_SHORT).show();
-            }
+        validator.validate(smsTicketBody);
+
+        try {
+            android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();
+            smsManager.sendTextMessage(smsTicketDestination, null, smsTicketBody, null, null);
+            Toast.makeText(MainActivity.getInstance(), "SMS-ul a fost trimis!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(MainActivity.getInstance(), "Eroare!", Toast.LENGTH_SHORT).show();
         }
     }
 }
