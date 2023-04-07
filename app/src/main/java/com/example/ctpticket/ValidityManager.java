@@ -22,8 +22,24 @@ public class ValidityManager extends Service {
     private boolean timeRunning;
     private CountDownTimer ticketValidityCounter;
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
-    public void startTimer() {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         TextView remainingTimeUntilExpiration = MainActivity.getInstance().findViewById(R.id.valabilitateBilet);
 
         ticketValidityCounter = new CountDownTimer(timeLeftInSeconds, 1000) {
@@ -51,50 +67,16 @@ public class ValidityManager extends Service {
             @Override
             public void onFinish() {
                 Toast.makeText(MainActivity.getInstance(), "Biletul a expirat!", Toast.LENGTH_SHORT).show();
+                stopSelf();
             }
         }.start();
         timeRunning = true;
-    }
-
-    public void startStop() {
-        if (timeRunning) {
-            stopTimer();
-        } else {
-            startTimer();
-        }
-    }
-
-    public void stopTimer() {
-        ticketValidityCounter.cancel();
-        timeRunning = false;
-        timeLeftInSeconds = TICKET_VALIDITY_IN_SECONDS;
-        ticketValidityCounter.start();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Exemplu")
-                .setContentText("Yoyoyoyoma")
+                .setContentTitle("CTP-Bilet")
+                .setContentText("Biletul este activ!")
                 .setSmallIcon(R.drawable.ic_cumpara)
                 .setContentIntent(pendingIntent)
                 .build();

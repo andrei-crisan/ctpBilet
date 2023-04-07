@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         smsContentGUI.setText(mesajIntegral);
         senderNrGUI.setText("Primit de la: " + msg_from);
         showSms = true;
-        validityManager.startStop();
         startService();
     }
 
