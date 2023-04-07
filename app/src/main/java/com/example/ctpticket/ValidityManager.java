@@ -1,12 +1,22 @@
 package com.example.ctpticket;
 
+import static com.example.ctpticket.MainActivity.CHANNEL_ID;
+
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ValidityManager {
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
+public class ValidityManager extends Service {
     private final long TICKET_VALIDITY_IN_SECONDS = 2700000;
     private long timeLeftInSeconds = TICKET_VALIDITY_IN_SECONDS;
     private boolean timeRunning;
@@ -61,4 +71,35 @@ public class ValidityManager {
         ticketValidityCounter.start();
     }
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Exemplu")
+                .setContentText("Yoyoyoyoma")
+                .setSmallIcon(R.drawable.ic_cumpara)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        startForeground(1, notification);
+        return START_NOT_STICKY;
+    }
 }
