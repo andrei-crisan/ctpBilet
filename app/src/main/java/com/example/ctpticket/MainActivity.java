@@ -1,6 +1,9 @@
 package com.example.ctpticket;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.AudioAttributes;
@@ -22,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String CHANNEL_ID = "ValidityManager";
     private static MainActivity instance;
     public EditText smsInputContentGUI;
     public TextView ticketValidationCodeGUI;
@@ -43,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createNotificationChannel();
+
         setContentView(R.layout.activity_main);
         instance = this;
 
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         smsContentGUI.setText(mesajIntegral);
         senderNrGUI.setText("Primit de la: " + msg_from);
         showSms = true;
-        validityManager.startStop();
+        startService();
     }
 
     public void playAudio(int nrRepetari) {
@@ -197,4 +203,29 @@ public class MainActivity extends AppCompatActivity {
         timeLeftUpdate += seconds;
         ticketValidityGUI.setText(timeLeftUpdate);
     }
+
+    public void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID, "Exemplu", NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
+
+    public void startService(){
+        Intent intent = new Intent(this, ValidityManager.class);
+        ValidityManager.timeRunning = true;
+        stopService();
+        startService(intent);
+    }
+
+    public void stopService(){
+        Intent intent = new Intent(this, ValidityManager.class);
+        stopService(intent);
+    }
+
+
 }
