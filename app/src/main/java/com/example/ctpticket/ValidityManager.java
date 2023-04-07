@@ -19,7 +19,6 @@ import androidx.core.app.NotificationCompat;
 public class ValidityManager extends Service {
     private final long TICKET_VALIDITY_IN_SECONDS = 2700000;
     private long timeLeftInSeconds = TICKET_VALIDITY_IN_SECONDS;
-    public static boolean timeRunning = false;
     private CountDownTimer ticketValidityCounter;
 
     @Nullable
@@ -81,7 +80,7 @@ public class ValidityManager extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("CTP-Bilet")
                 .setContentText("Biletul este activ!")
-                .setSmallIcon(R.drawable.ic_cumpara)
+                .setSmallIcon(R.drawable.ctp_serv_logo)
                 .setContentIntent(pendingIntent)
                 .build();
 
