@@ -1,4 +1,4 @@
-package com.raskolnikov.ctpticket;
+package com.raskolnikov.ctpticket.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.raskolnikov.ctpticket.MainActivity;
+import com.raskolnikov.ctpticket.validators.SmsBodyValidator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

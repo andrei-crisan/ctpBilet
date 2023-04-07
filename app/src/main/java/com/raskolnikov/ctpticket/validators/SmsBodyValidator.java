@@ -1,6 +1,8 @@
-package com.raskolnikov.ctpticket;
+package com.raskolnikov.ctpticket.validators;
 
 import android.widget.Toast;
+
+import com.raskolnikov.ctpticket.MainActivity;
 
 import java.util.Calendar;
 

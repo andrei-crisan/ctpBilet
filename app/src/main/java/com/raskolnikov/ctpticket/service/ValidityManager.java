@@ -1,4 +1,4 @@
-package com.raskolnikov.ctpticket;
+package com.raskolnikov.ctpticket.service;
 
 import static com.raskolnikov.ctpticket.MainActivity.CHANNEL_ID;
 
@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import com.raskolnikov.ctpticket.MainActivity;
+import com.raskolnikov.ctpticket.R;
 
 public class ValidityManager extends Service {
     private final long TICKET_VALIDITY_IN_SECONDS = 2700000;
