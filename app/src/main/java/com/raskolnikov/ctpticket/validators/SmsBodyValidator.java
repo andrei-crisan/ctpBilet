@@ -22,13 +22,13 @@ public class SmsBodyValidator {
         }
 
         if (Character.isLetter(smsTicketBody.charAt(0))) {
-            if (!smsTicketBody.startsWith("M")) {
+            if (!smsTicketBody.toLowerCase().startsWith("m")) {
                 Toast.makeText(MainActivity.getInstance(), "Linie invalida!", Toast.LENGTH_SHORT).show();
                 throw new SmsException("Error type: Non-urban tickets should start with 'M'");
             }
         }
 
-        if (smsTicketBody.matches("^\\d+")) {
+        if (Character.isDigit(smsTicketBody.charAt(0))) {
             if (!smsTicketBody.toLowerCase().matches("^\\d+([b|n|l|s|p]+)?$")) {
                 Toast.makeText(MainActivity.getInstance(), "Linie Invalida!", Toast.LENGTH_SHORT).show();
                 throw new SmsException("Error type: Wrong message pattern!");
