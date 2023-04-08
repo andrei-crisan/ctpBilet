@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1000);
         }
 
-
         buttonBuyTicketGUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID, "Exemplu", NotificationManager.IMPORTANCE_DEFAULT
+                    //Todo: Refactorizare
             );
 
             NotificationManager manager = getSystemService(NotificationManager.class);
