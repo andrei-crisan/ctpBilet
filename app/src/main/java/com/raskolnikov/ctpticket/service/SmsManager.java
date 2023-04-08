@@ -58,7 +58,7 @@ public class SmsManager extends BroadcastReceiver {
         String smsTicketDestination = "0740917616";
         String smsTicketBody = smsBody.getText().toString();
 
-        validator.validate(smsTicketBody);
+        validator.isContentValid(smsTicketBody);
 
         try {
             android.telephony.SmsManager smsManager = android.telephony.SmsManager.getDefault();

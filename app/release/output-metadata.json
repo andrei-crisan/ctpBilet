@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.ctpticket",
+  "applicationId": "com.raskolnikov.ctpticket",
   "variantName": "release",
   "elements": [
     {
