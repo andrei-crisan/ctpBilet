@@ -45,7 +45,6 @@ public class ValidityManager extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         TextView remainingTimeUntilExpiration = MainActivity.getInstance().findViewById(R.id.valabilitateBilet);
-
         ticketValidityCounter = new CountDownTimer(timeLeftInSeconds, 1000) {
             @Override
             public void onTick(long l) {

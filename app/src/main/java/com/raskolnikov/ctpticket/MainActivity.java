@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permissions granted!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Permissionss denied!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permissions denied!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         smsContentGUI.setText(mesajIntegral);
         senderNrGUI.setText("Primit de la: " + msg_from);
         showSms = true;
-        startService();
+        startValidityManager();
     }
 
     public void playAudio(int repetitions) {
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void startService() {
+    public void startValidityManager() {
         Intent intent = new Intent(this, ValidityManager.class);
         stopService(intent);
         startService(intent);
