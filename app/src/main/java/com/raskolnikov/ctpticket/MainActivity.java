@@ -182,18 +182,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateBusLineGUI(View view) {
-        EditText smsBox = findViewById(R.id.boxBiletAuto);
-        String valoareLinie = view.getTag().toString();
+        EditText smsInputBox = findViewById(R.id.boxBiletAuto);
+        String ticketPriceValue = view.getTag().toString();
 
-        if (valoareLinie.startsWith("M")) {
+        if (ticketPriceValue.startsWith("M")) {
             ticketPriceGUI.setText("1,15 € | ⏲");
         } else {
             ticketPriceGUI.setText("0,65 € | ⏲");
         }
-        if (valoareLinie.equals("25N")) {
+        if (ticketPriceValue.equals("25N")) {
             ticketPriceGUI.setText("1,00 € | ⏲");
         }
-        smsBox.setText(valoareLinie);
+        smsInputBox.setText(ticketPriceValue);
     }
 
     public void uiTimerUpdate(long timeLeft) {
