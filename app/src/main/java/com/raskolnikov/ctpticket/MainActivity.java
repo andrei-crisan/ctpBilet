@@ -73,21 +73,18 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1000);
         }
 
-        buttonBuyTicketGUI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-                        SmsManager rcv = new SmsManager();
-                        try {
-                            rcv.smsTicketSender(smsInputContentGUI);
-                        } catch (Exception e){ //Todo: Custom Exception
-                            e.printStackTrace();
-                        }
-
-                    } else {
-                        requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
+        buttonBuyTicketGUI.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                    SmsManager rcv = new SmsManager();
+                    try {
+                        rcv.smsTicketSender(smsInputContentGUI);
+                    } catch (Exception e){ //Todo: Custom Exception
+                        e.printStackTrace();
                     }
+
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
                 }
             }
         });
